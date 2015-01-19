@@ -11,16 +11,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_check_update = false
 
   # Use a bridged network.
-  config.vm.network "public_network"
+  config.vm.network :private_network, ip: "10.1.0.12"
 
   # Forward agent keys.
   config.ssh.forward_agent = true
 
   # Sync builds directory
-  config.vm.synced_folder "../../../builds", type: "nfs"
+  config.vm.synced_folder "../../../builds", "/home/vagrant/builds", type: "nfs"
 
   # Set provisioning script
-  dev_config.vm.provision :shell, :path => "../ansible/ansible-setup.sh"
+  Vagrant.configure("2") do |config|
+    config.vm.provision "shell", path: "../ansible/ansible-setup.sh"
+  end
 
   # Use 512mb of memory, and use 2 cps.
   config.vm.provider "virtualbox" do |vb|

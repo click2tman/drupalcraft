@@ -1,0 +1,6 @@
+---
+
+- name: Server setup
+  hosts: 127.0.0.1
+  user: root
+  sudo: yes
