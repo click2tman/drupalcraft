@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Use Ubuntu 14.04 box (trusty64).
+  config.vm.box = "ubuntu/trusty64"
+
+  # Do not check for updates on box.
+  config.vm.box_check_update = false
+
+  # Use a bridged network.
+  config.vm.network "public_network"
+
+  # Forward agent keys.
+  config.ssh.forward_agent = true
+
+  # Sync builds directory
+  config.vm.synced_folder "../../../builds", type: "nfs"
+
+  # Set provisioning script
+  dev_config.vm.provision :shell, :path => "../ansible/ansible-setup.sh"
+
+  # Use 512mb of memory, and use 2 cps.
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+  end
+end
