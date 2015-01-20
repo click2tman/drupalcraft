@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   # Sync builds directory
-  config.vm.synced_folder "../../../builds", "/home/vagrant/builds", type: "nfs"
+  config.vm.synced_folder "../../builds", "/home/vagrant/builds", type: "nfs"
 
   # Set provisioning script
   Vagrant.configure("2") do |config|
