@@ -17,9 +17,10 @@ var gulp = require('gulp'),
 gulp.task('jscs', 'Runs JSCS and JSLint on module, theme and gulp files. Excludes minified js files.', function () {
   return gulp.src([
     'modules/**/*.js',
-    '!modules/contrib/**/*.js',
     'themes/**/*.js',
     'gulpfile.js',
+    '_tasks/*.js',
+    '!modules/contrib/**/*.js',
     '!modules/**/*.min.js',
     '!themes/**/*.min.js'
   ])
