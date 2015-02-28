@@ -43,7 +43,7 @@ app
       .then(function (options) {
         return res
                 .status(200)
-                .send('done\n');
+                .send('Done\n');
       })
       .fail(function (error) {
         return res

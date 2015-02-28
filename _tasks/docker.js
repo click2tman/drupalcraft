@@ -31,7 +31,7 @@ gulp.task('docker.deploy', 'Deploy your current master to Docker.', function() {
       if (error) {
         throw new gutil.PluginError('docker', error);
       }
-      return console.log(response);
+      return console.log(response.body);
     });
   });
 });
