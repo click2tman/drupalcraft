@@ -16,13 +16,12 @@ var gulp = require('gulp'),
 
 /**
  * @task build
- * Constructs a Drupal site, executes construction commands, and builds a
- * functional Drupal site root.
+ * Constructs a functional drupal site root.
  *
  * @param string options.builddir
  *   Name of subdirectory in which this project should be built.
  */
-gulp.task('build.setup', function() {
+gulp.task('build.setup', 'constructs a functional Drupal site root.', function() {
   if (!options.hasOwnProperty('builddir') || options.builddir.length <= 0) {
     throw new gutil.PluginError('build', 'You must pass in a --builddir setting.');
   }
@@ -57,7 +56,7 @@ gulp.task('build.setup', function() {
  * @param string options.dbpass
  *   options.dbuser's password.
  */
-gulp.task('build.template', ['build.setup'], function() {
+gulp.task('build.template', 'Constructs Drupal settings/config files.', ['build.setup'], function() {
 
   if (!options.hasOwnProperty('dbname') || options.dbname.length <= 0) {
     throw new gutil.PluginError('build', 'You must pass in a --dname setting.');
@@ -93,7 +92,7 @@ gulp.task('build.template', ['build.setup'], function() {
  * @task build.install
  *   Runs Drupal installation scripts.
  */
-gulp.task('build.install', ['build.template'], function() {
+gulp.task('build.install', 'Runs Drupal installation scripts.', ['build.template'], function() {
   var builddir = 'builds/' + options.builddir;
   return gulp.src('')
           .pipe(shell('cd ' + builddir + '&& drush si -y --account-pass=admin && drush -y en master'))
@@ -101,10 +100,17 @@ gulp.task('build.install', ['build.template'], function() {
 });
 
 /**
+ * @task build.local
+ *   Runs build.setup, build.template, and build.install
+ *   to create a local Drupal root.
+ */
+gulp.task('build.local', 'Runs build.setup, build.template, and build.install.', ['build.setup','build.template','build.install']);
+
+/**
  * @task setup
  *   Constructs a working Drupal site.
  */
-gulp.task('setup', function() {
+gulp.task('setup', 'Constructs a working Drupal site', function() {
   del([
     'builds/workdir/**/*',
     '!builds/workdir/README.md'
@@ -114,4 +120,3 @@ gulp.task('setup', function() {
           .pipe(shell('gulp build --builddir workdir'));
 });
 
-gulp.task('build', ['build.setup','build.template','build.install']);
