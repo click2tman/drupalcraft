@@ -29,6 +29,7 @@
     "minimist": "^1.1.0",
     "promise": "^6.0.1",
     "request": "^2.53.0",
-    "require-dir": "^0.1.0"
+    "require-dir": "^0.1.0",
+    "run-sequence": "^1.0.2"
   }
 }
