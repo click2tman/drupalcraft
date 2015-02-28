@@ -25,7 +25,7 @@ module.exports      = {
 
     options.docker.buildName      = (Math.random() + 1).toString(36).substring(14);
 
-    cp.exec('git clone git@github.com:mattgrill/drupalcraft.git ' + options.docker.wwwdir, function (error, stdout, stderr) {
+    cp.exec('git clone ' + options.git + ' ' + options.docker.wwwdir, function (error, stdout, stderr) {
       if (error) {
         debug('Unable to clone to repository.');
         debug(error);

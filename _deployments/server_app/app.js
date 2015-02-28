@@ -25,13 +25,13 @@ app
      *
      */
 
-    if (!req.body.iid) {
+    if (!req.body.iid || !req.body.git) {
       return res
               .status(500)
               .send('Silly.\n');
     }
     debug('Starting Docker container creation.');
-    db.setup(appconfig, req.body.iid)
+    db.setup(appconfig, req.body.iid, req.body.git)
       .then(db.q_cu)
       .then(db.q_cd)
       .then(db.q_ap)

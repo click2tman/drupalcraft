@@ -10,8 +10,9 @@ var Q               = require('Q'),
        * Setup tasks for MYSQL related operations
        * @param  {object} appconfig Imported application config.
        * @param  {string} iid       container id
+       * @param  {string} git_branch The branch you're checking out from.
        */
-      setup         : function (appconfig, iid) {
+      setup         : function (appconfig, iid, git_branch) {
 
         var deferred              = Q.defer(),
             db_details            = {
@@ -31,13 +32,15 @@ var Q               = require('Q'),
             });
         debug(iid);
         debug(db_details);
+        debug(git_branch);
         deferred.resolve({
           'details'     : db_details,
           'queries'     : db_queries,
           'connection'  : dbconnection,
           'docker'      : {
             'iid'       : iid
-          }
+          },
+          'git' : git_branch
         });
         return deferred.promise;
       },
