@@ -9,17 +9,7 @@
 
 var gulp = require('gulp'),
     requireDir = require('require-dir'),
-    glob = require('glob'),
-    fs = require('fs'),
-    vm = require('vm'),
     gulpHelp = require('gulp-help')(gulp);
 
 // Require _task directory.
 requireDir('./_tasks');
-
-// Require installed _deployment options.
-glob('_deployments/*/task.js', function(err, files) {
-  for (i = 0; i < files.length; i++) {
-    vm.runInThisContext(fs.readFileSync(files[i]));
-  }
-});
