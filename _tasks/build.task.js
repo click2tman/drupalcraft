@@ -122,30 +122,3 @@ gulp.task('build', 'Constructs a working Drupal site within a specified director
   runSequence('build.setup', 'build.template', 'build.install');
 });
 
-/**
- * @task setup
- *   Constructs a working Drupal site.
- */
-gulp.task('build.local', 'Constructs a working Drupal site locally within /builds/workdir.', function () {
-
-  if (!options.hasOwnProperty('dbname') || options.dbname.length <= 0) {
-    throw new gutil.PluginError('build', 'You must pass in a --dbname setting.');
-  }
-
-  if (!options.hasOwnProperty('dbuser') || options.dbuser.length <= 0) {
-    throw new gutil.PluginError('build', 'You must pass in a --dbuser setting.');
-  }
-
-  if (!options.hasOwnProperty('dbpass') || options.dbpass.length <= 0) {
-    throw new gutil.PluginError('build', 'You must pass in a --dbpass setting.');
-  }
-
-  del([
-    'builds/workdir/**/*',
-    '!builds/workdir/README.md'
-  ]);
-
-  return gulp.src('drupal.make')
-          .pipe(shell('gulp build --builddir workdir --scope dev --dbname ' + options.dbname + ' --dbuser ' + options.dbuser + ' --dbpass ' + options.dbpass));
-});
-
