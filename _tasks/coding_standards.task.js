@@ -14,7 +14,7 @@ var gulp = require('gulp'),
  *   Runs JSCS and JSLint on module, theme, and gulp files. Excludes all
  *   minified JavaScript files.
  */
-gulp.task('jscs', function () {
+gulp.task('jscs', 'Runs JSCS and JSLint on module, theme and gulp files. Excludes minified js files.', function () {
   return gulp.src([
     'modules/**/*.js',
     'themes/**/*.js',
@@ -33,7 +33,7 @@ gulp.task('jscs', function () {
  *   /usr/local/bin/phpcs exe by default, but should be updated to
  *   wherever your phpcs exe is located.
  */
-gulp.task('phpcs', function () {
+gulp.task('phpcs', 'Run PHPCS on all module and theme PHP files.', function () {
   return gulp.src([
     'modules/**/*.php',
     'modules/**/*.module',
