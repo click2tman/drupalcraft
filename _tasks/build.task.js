@@ -118,7 +118,7 @@ gulp.task('build.install', 'Runs Drupal installation scripts.', function () {
  *   Runs build.setup, build.template, and build.install
  *   to create a local Drupal root.
  */
-gulp.task('build', 'Constructs a working Drupal site within a specified directory.', function() {
+gulp.task('build', 'Constructs a working Drupal site within a specified directory.', function () {
   runSequence('build.setup', 'build.template', 'build.install');
 });
 
