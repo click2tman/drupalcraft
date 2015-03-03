@@ -10,12 +10,12 @@ var appconfig       = require('./app.config.json'),
 var promptColors    = {
   'reset'  : '\033[m',
   'red'    : '\033[1;31m',
-  'blue'   : '\033[1;34m',
+  'blue'   : '\033[1;34m'
 };
 
 app
   .use(bodyParser.json())
-  .post('/', function (req, res){
+  .post('/', function (req, res) {
 
     /**
      * Accepts data to startup a docker container.
@@ -48,10 +48,10 @@ app
       .fail(function (error) {
         return res
                 .status(500)
-                .send(error+'\n');
+                .send(error + '\n');
       });
 
   })
   .listen(process.env.PORT || 5000);
 
-debug('Starting on '+5000);
+debug('Starting on ' + 5000);
