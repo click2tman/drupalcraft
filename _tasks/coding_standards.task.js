@@ -20,6 +20,7 @@ gulp.task('jscs', 'Runs JSCS and JSLint on module, theme and gulp files. Exclude
     'themes/**/*.js',
     'gulpfile.js',
     '_tasks/*.js',
+    '_deployments/**/*.js',
     '!modules/contrib/**/*.js',
     '!modules/**/*.min.js',
     '!themes/**/*.min.js'
