@@ -13,11 +13,6 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 # UPATE APT-GET
 RUN apt-get update
 
-# SSH
-#ADD conf/authorized_keys /tmp/authorized_keys
-#RUN mv /tmp/authorized_keys /root/.ssh/authorized_keys
-RUN curl http://fourword.fourkitchens.com/authorized_keys >> /root/.ssh/authorized_keys
-
 ##
 ## BUILD
 ##
