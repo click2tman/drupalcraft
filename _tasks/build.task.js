@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     template = require('gulp-template'),
     rename = require('gulp-rename'),
     symlink = require('gulp-symlink'),
-    options = require('minimist')(process.argv.slice(2));
+    options = require('minimist')(process.argv.slice(2)),
+    runSequence = require('run-sequence');
 
 /**
  * @task build
@@ -56,10 +57,14 @@ gulp.task('build.setup', 'constructs a functional Drupal site root.', function (
  * @param string options.dbpass
  *   options.dbuser's password.
  */
-gulp.task('build.template', 'Constructs Drupal settings/config files.', ['build.setup'], function () {
+gulp.task('build.template', 'Constructs Drupal settings/config files.', function () {
 
   if (!options.hasOwnProperty('dbname') || options.dbname.length <= 0) {
-    throw new gutil.PluginError('build', 'You must pass in a --dname setting.');
+    throw new gutil.PluginError('build', 'You must pass in a --dbname setting.');
+  }
+
+  if (!options.hasOwnProperty('dbuser') || options.dbuser.length <= 0) {
+    throw new gutil.PluginError('build', 'You must pass in a --dbuser setting.');
   }
 
   if (!options.hasOwnProperty('dbpass') || options.dbpass.length <= 0) {
@@ -92,31 +97,28 @@ gulp.task('build.template', 'Constructs Drupal settings/config files.', ['build.
  * @task build.install
  *   Runs Drupal installation scripts.
  */
-gulp.task('build.install', 'Runs Drupal installation scripts.', ['build.template'], function () {
+gulp.task('build.install', 'Runs Drupal installation scripts.', function () {
+  if (!options.hasOwnProperty('builddir') || options.builddir.length <= 0) {
+    throw new gutil.PluginError('build', 'You must pass in a --builddir setting.');
+  }
+
+  if (!options.hasOwnProperty('scope') || options.scope.length <= 0) {
+    throw new gutil.PluginError('build', 'You must pass in a --scope setting.');
+  }
+
   var builddir = 'builds/' + options.builddir;
+
   return gulp.src('')
           .pipe(shell('cd ' + builddir + '&& drush si -y --account-pass=admin && drush -y en master'))
           .pipe(shell('cd ' + builddir + '&& drush master-set-current-scope ' + options.scope + ' && drush -y master-execute'));
 });
 
 /**
- * @task build.local
+ * @task build
  *   Runs build.setup, build.template, and build.install
  *   to create a local Drupal root.
  */
-gulp.task('build.local', 'Runs build.setup, build.template, and build.install.', ['build.setup', 'build.template', 'build.install']);
-
-/**
- * @task setup
- *   Constructs a working Drupal site.
- */
-gulp.task('setup', 'Constructs a working Drupal site', function () {
-  del([
-    'builds/workdir/**/*',
-    '!builds/workdir/README.md'
-  ]);
-
-  return gulp.src('drupal.make')
-          .pipe(shell('gulp build --builddir workdir'));
+gulp.task('build', 'Constructs a working Drupal site within a specified directory.', function () {
+  runSequence('build.setup', 'build.template', 'build.install');
 });
 

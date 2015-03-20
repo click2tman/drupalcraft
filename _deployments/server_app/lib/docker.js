@@ -10,11 +10,11 @@ module.exports      = {
         wwwdir          = '/tmp/docker/' + options.details.name;
     fs.mkdir(wwwdir, 0775, function (error) {
       if (error) {
-        debug('Failed to create the directory, '+wwwdir);
+        debug('Failed to create the directory, ' + wwwdir);
         debug(error);
         deferred.reject(new Error(error));
       }
-      debug('Created the directory, '+wwwdir);
+      debug('Created the directory, ' + wwwdir);
       options.docker.wwwdir = wwwdir;
       deferred.resolve(options);
     });
@@ -61,8 +61,8 @@ module.exports      = {
           ],
           'Image' : options.docker.iid,
           'NetworkDisabled' : false,
-          'RestartPolicy' : { 'Name': 'always' },
-          'ExposedPorts': { '80/tcp': {}, '22/tcp' : {} }
+          'RestartPolicy' : {'Name': 'always'},
+          'ExposedPorts': {'80/tcp': {}, '22/tcp' : {}}
         };
     debug(containerInfo);
     request.post({
@@ -86,7 +86,7 @@ module.exports      = {
             '/var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock',
             '/tmp/docker/' + options.details.name + '/builds/' + options.docker.buildName + ':/var/www/html'
           ],
-          'PortBindings':{ '80/tcp': [{ 'HostPort' : '' }] }
+          'PortBindings':{'80/tcp': [{'HostPort' : ''}]}
         };
     debug(containerInfo);
     request.post({

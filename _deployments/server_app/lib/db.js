@@ -60,7 +60,7 @@ var Q               = require('Q'),
       q_cu              : function (options) {
         debug('Creating MySQL user.');
         var deferred  = Q.defer();
-        options.connection.query({ sql : options.queries.create_user }, deferred.resolve(options));
+        options.connection.query({sql : options.queries.create_user}, deferred.resolve(options));
         return deferred.promise;
       },
       /**
@@ -71,7 +71,7 @@ var Q               = require('Q'),
       q_cd              : function (options) {
         debug('Creating MySQL database.');
         var deferred  = Q.defer();
-        options.connection.query({ sql : options.queries.create_database }, deferred.resolve(options));
+        options.connection.query({sql : options.queries.create_database}, deferred.resolve(options));
         return deferred.promise;
       },
       /**
@@ -82,7 +82,7 @@ var Q               = require('Q'),
       q_ap              : function (options) {
         debug('Setting MySQL access permissions.');
         var deferred  = Q.defer();
-        options.connection.query({ sql : options.queries.access_perms }, deferred.resolve(options));
+        options.connection.query({sql : options.queries.access_perms}, deferred.resolve(options));
         return deferred.promise;
       }
     };
