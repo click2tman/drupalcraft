@@ -23,7 +23,7 @@ var gulp = require('gulp'),
  * @param string options.dbpass
  *   options.dbuser's password.
  */
-gulp.task('build.local', 'Constructs a working Drupal site locally within /builds/workdir.', function () {
+gulp.task('deployments.local', 'Constructs a working Drupal site locally within /builds/workdir.', function () {
 
   if (!options.hasOwnProperty('dbname') || options.dbname.length <= 0) {
     throw new gutil.PluginError('build', 'You must pass in a --dbname setting.');

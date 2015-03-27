@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     cp = require('child_process');
 
-gulp.task('docker.deploy', 'Deploy your current master to Docker.', function () {
+gulp.task('deployments.docker', 'Deploy your current master to Docker.', function () {
   var buildInfo = {
     'iid': '6c3a57612039fb582bdc68e5811ee685c049e200a51cf25511687dd909938436',
     'git': ''
