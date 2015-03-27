@@ -42,6 +42,10 @@ gulp.task('build.setup', 'constructs a functional Drupal site root.', function (
       gulp.src('themes')
         .pipe(symlink(builddir + '/sites/all/themes'))
     );
+}, {
+  options: {
+    'builddir': 'Directory within /builds in which site should be constructed'
+  }
 });
 
 /**
@@ -91,11 +95,23 @@ gulp.task('build.template', 'Constructs Drupal settings/config files.', function
       gulp.src('')
         .pipe(shell('cd ' + builddir + '/sites/default && rm site.settings.php'))
     );
+}, {
+  options: {
+    'builddir': 'Directory within /builds in which site should be constructed.',
+    'dbname': 'Name of database in which Drupal should be installed.',
+    'dbuser': 'Mysql user that Drupal should use to log into mysql.',
+    'dbpass': 'Password of mysql user that Drupal should use to log into mysql'
+  }
 });
 
 /**
  * @task build.install
  *   Runs Drupal installation scripts.
+ *
+ * @param string options.builddir
+ *   Name of subdirectory in which this project should be built.
+ * @param string options.scope
+ *   Name of scope that should be passed into Master module.
  */
 gulp.task('build.install', 'Runs Drupal installation scripts.', function () {
   if (!options.hasOwnProperty('builddir') || options.builddir.length <= 0) {
@@ -111,6 +127,11 @@ gulp.task('build.install', 'Runs Drupal installation scripts.', function () {
   return gulp.src('')
           .pipe(shell('cd ' + builddir + '&& drush si -y --account-pass=admin && drush -y en master'))
           .pipe(shell('cd ' + builddir + '&& drush master-set-current-scope ' + options.scope + ' && drush -y master-execute'));
+}, {
+  options: {
+    'builddir': 'Directory within /builds in which site should be constructed.',
+    'scope': 'Name of scope that should be passed into Master module.'
+  }
 });
 
 /**
@@ -120,5 +141,12 @@ gulp.task('build.install', 'Runs Drupal installation scripts.', function () {
  */
 gulp.task('build', 'Constructs a working Drupal site within a specified directory.', function () {
   runSequence('build.setup', 'build.template', 'build.install');
+}, {
+  options: {
+    'builddir': 'Directory within /builds in which site should be constructed.',
+    'dbname': 'Name of database in which Drupal should be installed.',
+    'dbuser': 'Mysql user that Drupal should use to log into mysql.',
+    'dbpass': 'Password of mysql user that Drupal should use to log into mysql'
+  }
 });
 

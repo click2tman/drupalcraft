@@ -13,6 +13,15 @@ var gulp = require('gulp'),
 /**
  * @task build.local
  *   Constructs a working Drupal site on your local machine.
+ *
+ * @param string options.builddir
+ *   Name of subdirectory in which this project should be built.
+ * @param string options.dbname
+ *   Name of database in which Drupal should be installed.
+ * @param string options.dbuser
+ *   Mysql user that Drupal should use.
+ * @param string options.dbpass
+ *   options.dbuser's password.
  */
 gulp.task('build.local', 'Constructs a working Drupal site locally within /builds/workdir.', function () {
 
@@ -35,5 +44,12 @@ gulp.task('build.local', 'Constructs a working Drupal site locally within /build
 
   return gulp.src('drupal.make')
           .pipe(shell('gulp build --builddir workdir --scope dev --dbname ' + options.dbname + ' --dbuser ' + options.dbuser + ' --dbpass ' + options.dbpass));
+}, {
+  options: {
+    'builddir': 'Directory within /builds in which site should be constructed.',
+    'dbname': 'Name of database in which Drupal should be installed.',
+    'dbuser': 'Mysql user that Drupal should use to log into mysql.',
+    'dbpass': 'Password of mysql user that Drupal should use to log into mysql'
+  }
 });
 
