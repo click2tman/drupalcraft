@@ -26,6 +26,7 @@
     "gulp-template": "^1.1.1",
     "gulp-util": "^3.0.1",
     "gulp-watch": "^3.0.0",
+    "lodash": "^3.6.0",
     "merge-stream": "^0.1.6",
     "minimist": "^1.1.0",
     "promise": "^6.0.1",
@@ -33,5 +34,9 @@
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
     "sync-exec": "^0.5.0"
+  },
+  "deployments": {
+    "docker": "_deployments/server_app/_task.js",
+    "local": "_deployments/local/_task.js"
   }
 }

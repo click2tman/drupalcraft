@@ -24,9 +24,9 @@ gulp.task('docker.deploy', 'Deploy your current master to Docker.', function () 
     buildInfo.git = stdout.replace(/(\r\n|\n|\r)/gm, '');
 
     request.post({
-      'url'     : 'http://local.docker:5000',
-      'headers' : {'Content-Type' : 'application/json'},
-      'body'  : JSON.stringify(buildInfo)
+      'url': 'http://local.docker:5000',
+      'headers': {'Content-Type' : 'application/json'},
+      'body': JSON.stringify(buildInfo)
     }, function (error, response, body) {
       if (error) {
         throw new gutil.PluginError('docker', error);

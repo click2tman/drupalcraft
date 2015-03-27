@@ -9,7 +9,14 @@
 
 var gulp = require('gulp'),
     requireDir = require('require-dir'),
+    pjson = require('./package.json'),
+    _ = require('lodash'),
     gulpHelp = require('gulp-help')(gulp);
 
 // Require _task directory.
 requireDir('./_tasks');
+
+// Require enabled deployment options.
+_.forOwn(pjson.deployments, function(path) {
+  require('./' + path);
+});
